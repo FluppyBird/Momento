@@ -1,0 +1,36 @@
+<%= turbo_frame_tag "profile_info" do %>
+  <div class="container mt-5">
+    <h2>Edit Profile</h2>
+
+    <%= form_with model: @profile, url: profile_path(@profile), method: :patch, local: true, multipart: true do |f| %>
+
+      <!-- 显示当前头像 -->
+      <div class="mb-3 text-center">
+        <% if @profile.avatar.attached? %>
+          <%= image_tag @profile.avatar.variant(resize_to_limit: [150, 150]), class: "rounded-circle mb-3" %>
+        <% else %>
+          <%= image_tag("default_avatar.png", size: "150x150", class: "rounded-circle mb-3") %>
+<!--          <img src="https://via.placeholder.com/150" class="rounded-circle mb-3" alt="默认头像">-->
+        <% end %>
+      </div>
+
+      <!-- 上传新头像 -->
+      <div class="mb-3">
+        <%= f.label :avatar, "上传新头像" %>
+        <%= f.file_field :avatar, class: "form-control" %>
+      </div>
+
+      <!-- 自我介绍 -->
+      <div class="mb-3">
+        <%= f.label :bio, "自我介绍" %>
+        <%= f.text_area :bio, class: "form-control", rows: 5 %>
+      </div>
+
+      <!-- 提交按钮 -->
+      <div>
+        <%= f.submit "保存资料", class: "btn btn-primary" %>
+      </div>
+    <% end %>
+  </div>
+<% end %>
+

@@ -1,0 +1,60 @@
+<!--<div data-controller="modal">-->
+<!--  <a href="/posts/1" data-action="click->modal#open" class="btn btn-primary">点击查看 Post1</a>-->
+
+<!--  <div-->
+<!--    id="modal"-->
+<!--    data-modal-target="overlay"-->
+<!--    data-action="click->modal#backgroundClick"-->
+<!--    class="modal fade show"-->
+<!--    tabindex="-1"-->
+<!--    role="dialog"-->
+<!--    style="display: none; background-color: rgba(0, 0, 0, 0.5);"-->
+<!--  >-->
+<!--    <div class="modal-dialog modal-dialog-centered w-100" role="document" style="max-width: 100%;max-height: 100%;">-->
+<!--      <div class="modal-content shadow-lg rounded-3" style="max-width: 60%; max-height: 90%; margin: auto;">-->
+<!--        <div class="modal-body" data-modal-target="content">-->
+<!--          默认内容-->
+<!--        </div>-->
+<!--      </div>-->
+<!--    </div>-->
+<!--  </div>-->
+<!--</div>-->
+
+<!--多链接版本-->
+<div data-controller="modal">
+  <% (1..10).each do |id| %>
+    <a href="/posts/<%= id %>" data-action="click->modal#open" class="btn btn-primary m-1">
+      点击查看 Post<%= id %>
+    </a>
+  <% end %>
+
+  <div
+    id="modal"
+    data-modal-target="overlay"
+    data-action="click->modal#backgroundClick"
+    class="modal fade show"
+    tabindex="-1"
+    role="dialog"
+    style="display: none; background-color: rgba(0, 0, 0, 0.5);"
+  >
+    <div class="modal-dialog modal-dialog-centered w-100" role="document" style="max-width: 100%; max-height: 100%;">
+      <div class="modal-content shadow-lg rounded-3" style="max-width: 60%; max-height: 90%; margin: auto;">
+        <div class="modal-body" data-modal-target="content">
+          默认内容
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div data-controller="flash">这是会淡出的 Flash</div>
+<div data-controller="modal" data-action="click->modal#open">点我打开 Modal</div>
+<div data-controller="hello">你好 Stimulus！</div>
+
+
+
+
+
+
+

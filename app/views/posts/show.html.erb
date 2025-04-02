@@ -1,0 +1,78 @@
+<div class="container mt-4">
+  <div class="row gx-4 gy-4">
+    <!-- 左侧：图片 -->
+    <div class="col-lg-7 text-center">
+      <% if @post.image.attached? %>
+
+        <% if @post.image.metadata[:height] > @post.image.metadata[:width] %>
+          <%= image_tag @post.image.variant(resize_to_fill: [600, 800]), class: "img-fluid rounded shadow" %>
+        <% else %>
+          <%= image_tag @post.image.variant(resize_to_fill: [800, 600]), class: "img-fluid rounded shadow" %>
+        <% end %>
+
+        <%#= image_tag @post.image.variant(resize_to_fill: [600, 800]), class: "img-fluid rounded shadow" %>
+        <%#= image_tag @post.image, class: "img-fluid rounded shadow" %>
+      <% end %>
+    </div>
+
+    <!-- 右侧：信息 -->
+    <div class="col-lg-5">
+      <div class="border rounded p-4 bg-white shadow-sm">
+
+        <div class="d-flex justify-content-between align-items-center mb-3">
+          <h4 class="fw-bold"><%= @post.title %></h4>
+
+          <%# if current_user && current_user != @post.user %>
+            <%# if current_user.following.include?(@post.user) %>
+              <%#= button_to "取消关注", unfollow_user_path(@post.user), method: :delete, class: "btn btn-outline-danger btn-sm" %>
+            <%# else %>
+              <%#= button_to "关注", follow_user_path(@post.user), method: :post, class: "btn btn-outline-primary btn-sm" %>
+            <%# end %>
+          <%# end %>
+
+          <%= render "posts/follow_button", user: @post.user %>
+
+        </div>
+
+        <div class="nav-item mb-3">
+          <strong>Posted by: </strong>
+          <%= link_to profile_path(@post.user), class: "text-decoration-none d-inline-flex align-items-center" do %>
+            <%= image_tag @post.user.profile.avatar.variant(resize_to_fill: [30, 30]), class: "rounded-circle me-2" if @post.user.profile.avatar.attached? %>
+            <%= @post.user.username %>
+          <% end %>
+        </div>
+
+
+        <p><strong>Posted on: </strong><%= @post.created_at.strftime("%Y-%m-%d %H:%M") %></p>
+        <hr>
+        <p class="mb-3"><%= @post.content %></p>
+
+        <div id="like_button_<%= @post.id %>">
+          <%= render "posts/like_button", post: @post %>
+        </div>
+
+        <hr>
+        <h5 class="mb-3">评论</h5>
+        <% @post.comments.each do |comment| %>
+          <div class="border rounded p-2 mb-2 bg-light">
+            <strong><%= comment.user.username %>:</strong> <%= comment.content %>
+            <div class="text-muted small"><%= comment.created_at.strftime("%Y-%m-%d %H:%M") %></div>
+          </div>
+        <% end %>
+
+        <% if current_user %>
+          <%= form_with model: [@post, @post.comments.build], local: true do |form| %>
+            <div class="mb-2">
+              <%= form.label :content, "添加评论", class: "form-label" %>
+              <%= form.text_area :content, class: "form-control", rows: 3 %>
+            </div>
+            <%= form.submit "发布评论", class: "btn btn-primary btn-sm" %>
+          <% end %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+

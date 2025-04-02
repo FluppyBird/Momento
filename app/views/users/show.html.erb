@@ -1,0 +1,32 @@
+<!--<h2><%#= @user.username %> 的个人资料</h2>-->
+
+<!--<div>-->
+  <%# if @user.avatar.attached? %>
+    <%#= image_tag @user.avatar, size: "150x150", class: "rounded-circle" %>
+  <%# else %>
+<!--    <img src="https://via.placeholder.com/150" alt="Default Avatar" class="rounded-circle">-->
+  <%# end %>
+<!--</div>-->
+
+<!--<p>用户名: <%#= @user.username %></p>-->
+<!--<p>邮箱: <%#= @user.email %></p>-->
+<!--<p>注册时间: <%#= @user.created_at.strftime("%Y-%m-%d") %></p>-->
+<!--<p>关注: <%#= @user.following.count %> | 粉丝: <%#= @user.followers.count %></p>-->
+
+<!--<h3>用户发布的帖子</h3>-->
+<!--<div class="row">-->
+  <%# @posts.each do |post| %>
+<!--    <div class="col-md-4 mb-4">-->
+<!--      <div class="card">-->
+        <%# if post.image.attached? %>
+          <%#= image_tag post.image, class: "card-img-top" %>
+        <%# end %>
+<!--        <div class="card-body">-->
+<!--          <h5 class="card-title"><%#= link_to post.title, post_path(post) %></h5>-->
+<!--          <p><%#= post.content.truncate(100) %></p>-->
+<!--          <p>点赞数: <%#= post.likes.count %> | 评论数: <%#= post.comments.count %></p>-->
+<!--        </div>-->
+<!--      </div>-->
+<!--    </div>-->
+  <%# end %>
+<!--</div>-->

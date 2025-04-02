@@ -1,0 +1,33 @@
+<div class="container mt-5">
+  <div class="row justify-content-center">
+    <div class="col-md-8 col-lg-6">
+      <div class="card shadow-lg border-0">
+        <div class="card-body">
+          <h2 class="card-title text-center mb-4">Create New Post</h2>
+
+          <%= form_with model: @post, local: true, html: { multipart: true } do |form| %>
+            <div class="mb-3">
+              <%= form.label :title, "Title" %>
+              <%= form.text_field :title, class: "form-control", placeholder: "Enter a title..." %>
+            </div>
+
+            <div class="mb-3">
+              <%= form.label :content, "Content" %>
+              <%= form.text_area :content, class: "form-control", rows: 5, placeholder: "Write something..." %>
+            </div>
+
+            <div class="mb-3">
+              <%= form.label :image, "Choose File" %>
+              <%= form.file_field :image, class: "form-control" %>
+            </div>
+
+            <div class="d-grid gap-2">
+              <%= form.submit "Post", class: "btn btn-primary" %>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+

@@ -1,0 +1,9 @@
+<div id="follow_button_<%= user.id %>">
+  <% if current_user && current_user != user %>
+    <% if current_user.following.include?(user) %>
+      <%= button_to "Unfollow", unfollow_user_path(user), method: :delete, data: { turbo_stream: true }, class: "btn btn-outline-danger btn-sm" %>
+    <% else %>
+      <%= button_to "Follow", follow_user_path(user), method: :post, data: { turbo_stream: true }, class: "btn btn-outline-primary btn-sm" %>
+    <% end %>
+  <% end %>
+</div>

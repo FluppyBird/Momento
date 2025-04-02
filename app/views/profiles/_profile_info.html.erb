@@ -1,0 +1,38 @@
+<!-- 用户头像 -->
+<% if @profile.avatar.attached? %>
+  <%= image_tag @profile.avatar.variant(resize_to_limit: [150, 150]), class: "rounded-circle mb-3" %>
+<% else %>
+  <%#= image_tag ("default_avatar.png", size: "150x150", class: "rounded-circle mb-3") %>
+  <%= image_tag("default_avatar.png", size: "150x150", class: "rounded-circle mb-3") %>
+<!--  <img src="https://via.placeholder.com/150" class="rounded-circle mb-3" alt="默认头像">-->
+<% end %>
+
+<!-- 用户名 -->
+<h3><%= @user.username %></h3>
+
+<!-- 自我介绍 -->
+<p><%= @profile.bio.present? ? @profile.bio : "No bio" %></p>
+
+<!-- 关注/粉丝/点赞 -->
+<div class="d-flex justify-content-around mb-3">
+  <div>
+    <strong><%= @user.following.count %></strong><br>Following
+  </div>
+  <div>
+    <strong><%= @user.followers.count %></strong><br>Followers
+  </div>
+  <div>
+    <strong><%= @user.posts.joins(:likes).count %></strong><br>Likes
+  </div>
+</div>
+
+<!-- 编辑资料按钮（当前用户） -->
+<% if current_user == @user %>
+  <%= link_to "Edit Profile", edit_profile_path(@profile), data: { turbo_frame: "profile_info" }, class: "btn btn-outline-primary mb-3" %>
+<% end %>
+
+<% if flash[:notice] %>
+  <div class="alert alert-success" role="alert">
+    <%= flash[:notice] %>
+  </div>
+<% end %>
