@@ -1,8 +1,22 @@
+puts '11111'
 require 'open-uri'
+puts '22222'
 require 'json'
+puts '3333'
 require 'fileutils'
-require "image_processing/vips"
+puts '44444'
 
+# 安静地引入 image_processing/vips
+#stderr_original = $stderr.dup
+puts '55555'
+#$stderr.reopen(File::NULL)
+puts '66666'
+require "image_processing/vips"
+puts '77777'
+#$stderr.reopen(stderr_original)
+puts '88888'
+
+puts '555555'
 puts "🌱 Starting to seed..."
 
 # 🔥 删除所有数据
@@ -26,9 +40,6 @@ end
 # 📦 读取 JSON 文件
 fake_users = JSON.parse(File.read(Rails.root.join("app/assets/json/fake_users_30.json")))
 posts_data = JSON.parse(File.read(Rails.root.join("app/assets/json/posts_title_content_1-60.json")))
-
-# 禁用 User 的 after_create 回调
-User.skip_callback(:create, :after, :create_default_profile)
 
 # 🧑‍🤝‍🧑 创建用户 + 头像 + 帖子
 fake_users.each_with_index do |user_data, i|
@@ -54,10 +65,6 @@ fake_users.each_with_index do |user_data, i|
   post.image.analyze
 end
 
-
-# seed 执行完后恢复回调（可选）
-User.set_callback(:create, :after, :create_default_profile)
-
 # ➕ 社交互动数据
 users = User.all
 posts = Post.all
@@ -65,12 +72,12 @@ posts = Post.all
 users.each do |user|
   ActiveRecord::Base.transaction do
     # 关注 15 个其他用户
-    users.where.not(id: user.id).sample(3).each do |target|
+    users.where.not(id: user.id).sample(15).each do |target|
       Follow.find_or_create_by!(follower: user, followed: target)
     end
 
     # 点赞 15 个帖子
-    posts.sample(3).each do |post|
+    posts.sample(15).each do |post|
       Like.find_or_create_by!(user: user, post: post)
     end
   end

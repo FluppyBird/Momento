@@ -1,0 +1,16 @@
+=> Booting Puma
+=> Rails 7.1.5.1 application starting in production 
+=> Run `bin/rails server --help` for more startup options
+Puma starting in single mode...
+* Puma version: 6.6.0 ("Return to Forever")
+* Ruby version: ruby 3.3.7 (2025-01-15 revision be31f993d7) [x86_64-linux]
+*  Min threads: 5
+*  Max threads: 5
+*  Environment: production
+*          PID: 94610
+* Listening on http://0.0.0.0:3000
+Use Ctrl-C to stop
+- Gracefully stopping, waiting for requests to finish
+=== puma shutdown: 2025-04-03 01:45:25 +0000 ===
+- Goodbye!
+Exiting

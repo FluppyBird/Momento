@@ -1,6 +1,9 @@
 class LikesController < ApplicationController
   before_action :require_login, :find_post
 
+#  def index
+#  end
+
   def create
     @like = @post.likes.build(user: current_user)
 
