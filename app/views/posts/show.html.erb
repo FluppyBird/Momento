@@ -47,9 +47,16 @@
         <hr>
         <p class="mb-3"><%= @post.content %></p>
 
-        <div id="like_button_<%= @post.id %>">
-          <%= render "posts/like_button", post: @post %>
-        </div>
+		<div class="d-flex justify-content-between align-items-center">
+ 		 <%= render "posts/like_button", post: @post %>
+
+ 		 <% if current_user == @post.user %>
+ 		   <%= button_to "Delete", post_path(@post), method: :delete,
+       	   data: { turbo_confirm: "Are you sure you want to delete this post?" },
+      	    class: "btn btn-outline-danger btn-sm" %>
+		  <% end %>
+		</div>
+
 
         <hr>
         <h5 class="mb-3">评论</h5>
