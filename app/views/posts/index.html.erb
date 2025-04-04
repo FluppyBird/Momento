@@ -2,6 +2,8 @@
   <div class="container-fluid d-flex content-wrapper">
     <!-- 左侧菜单栏 -->
     <div class="sidebar">
+      <%#= debug current_user %>
+      <%#= user_signed_in?.inspect %>
 
       <div class="logo-wrapper">
         <%= image_tag("logo.png", alt: "Momento Logo") %>
@@ -16,7 +18,7 @@
           </a>
         </li>
 
-        <% if session[:user_id] %>
+        <% if user_signed_in? %>
           <li class="nav-item mb-3">
             <a href="<%= new_post_path %>" class="nav-link d-flex align-items-center">
               <i class="bi bi-plus-circle me-2"></i> Post
@@ -44,16 +46,16 @@
 
           <!-- 退出登录按钮 -->
           <li class="nav-item mb-3">
-            <%= button_to "Logout", logout_path, method: :delete, class: "btn btn-danger w-100" %>
+            <%= button_to "Logout", destroy_user_session_path, method: :delete, class: "btn btn-danger w-100" %>
           </li>
 
         <% else %>
           <li class="nav-item mb-3">
-            <a href="<%= login_path %>" class="nav-link">
+            <a href="<%= new_user_session_path  %>" class="nav-link">
               <i class="bi bi-send me-2"></i>Login</a>
           </li>
           <li class="nav-item mb-3">
-            <a href="<%= signup_path %>" class="nav-link text-danger">
+            <a href="<%= new_user_registration_path  %>" class="nav-link text-danger">
               <i class="bi bi-airplane me-2"></i>Register</a>
           </li>
         <% end %>
@@ -93,7 +95,7 @@
                   <%= link_to post.user.username, profile_path(post.user), class: "fw-semibold text-dark text-decoration-none" %>
                 </span>
 <!--                <span><%#= link_to post.user.username, profile_path(post.user) %></span>-->
-                <span>❤️ <%= post.likes.count %> Likes</span>
+                <span>❤️ <%= post.likes.count %></span>
               </p>
             </div>
           </div>

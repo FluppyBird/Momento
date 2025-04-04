@@ -1,6 +1,4 @@
 class PostsController < ApplicationController
-  before_action :require_login, only: [:new, :create]
-  before_action :current_user
   def index
     @posts = Post.all.order(created_at: :desc)
   end
@@ -26,6 +24,7 @@ class PostsController < ApplicationController
 
       redirect_to root_path, notice: "Post created successfully!"
     else
+      Rails.logger.error @post.errors.full_messages.inspect
       render :new, status: :unprocessable_entity
     end
   end
@@ -35,6 +34,16 @@ class PostsController < ApplicationController
     @user = @post.user
     @comments = @post.comments.includes(:user)
     @new_comment = Comment.new
+  end
+
+  def destroy
+    @post = Post.find(params[:id])
+    if @post.user == current_user
+      @post.destroy
+      redirect_to root_path, notice: "Post deleted successfully."
+    else
+      redirect_to root_path, alert: "You are not authorized to delete this post."
+    end
   end
 
   private

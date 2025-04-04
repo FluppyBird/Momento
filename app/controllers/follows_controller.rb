@@ -5,7 +5,7 @@ class FollowsController < ApplicationController
 
     respond_to do |format|
       format.turbo_stream
-      format.html { redirect_to profile_path(@user), notice: "Follow successfully!" }
+      format.html { redirect_to profile_path(@user), notice: "Follow successfully11!" }
     end
   end
 
@@ -15,7 +15,7 @@ class FollowsController < ApplicationController
 
     respond_to do |format|
       format.turbo_stream
-      format.html { redirect_to profile_path(@user), notice: "Unfollow successfully!" }
+      format.html { redirect_to profile_path(@user), notice: "Unfollow successfully22!" }
     end
   end
 end

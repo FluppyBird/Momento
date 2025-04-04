@@ -202,5 +202,80 @@ a:hover {
     object-fit: contain;
 }
 
+/* === 响应式布局：大屏、平板、手机 === */
+
+/* 平板及更小（小于 992px）时侧边栏折叠 */
+@media (max-width: 991.98px) {
+    .outer-container {
+        flex-direction: column;
+    }
+
+    .sidebar {
+        position: static;
+        width: 100%;
+        max-width: none;
+        height: auto;
+        border-bottom: 1px solid #ddd;
+    }
+
+    .main-content {
+        padding-top: 1rem;
+    }
+
+    .grid-container {
+        column-count: 3;
+    }
+}
+
+/* 手机（小于 768px）布局优化 */
+@media (max-width: 767.98px) {
+    .sidebar {
+        padding: 1rem;
+    }
+
+    .grid-container {
+        column-count: 2;
+        column-gap: 1rem;
+    }
+
+    .btn {
+        font-size: 0.9rem;
+        padding: 0.4rem 0.8rem;
+    }
+
+    .card-title {
+        font-size: 1rem;
+    }
+
+    .card-text {
+        font-size: 0.85rem;
+    }
+
+    .flash {
+        min-width: 280px;
+        padding: 0.5rem 1rem;
+        font-size: 0.85rem;
+    }
+}
+
+/* 超小屏（小于 576px）布局精简 */
+@media (max-width: 575.98px) {
+    .grid-container {
+        column-count: 1;
+    }
+
+    .sidebar .nav-link {
+        font-size: 16px;
+        padding: 10px 12px;
+    }
+
+    .sidebar .nav-link i,
+    .sidebar .nav-link img {
+        width: 20px;
+        height: 20px;
+        margin-right: 8px;
+    }
+}
+
 
 

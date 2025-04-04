@@ -1,6 +1,6 @@
 class ProfilesController < ApplicationController
   before_action :set_user_and_profile, only: [:show, :edit, :update]
-  before_action :require_login, only: [:edit, :update]
+  before_action :authenticate_user!
 
   def show
     @posts = @user.posts.order(created_at: :desc)

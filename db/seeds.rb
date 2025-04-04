@@ -73,7 +73,7 @@ fake_users.each_with_index do |user_data, i|
   user = User.create!(
     username: user_data["username"],
     email: user_data["email"],
-    password: "123"
+    password: "123456"
   )
 
   # profile = user.build_profile(bio: user_data["bio"])

@@ -26,17 +26,23 @@
 <!--      <div class="alert alert-danger" data-controller="flash"><%#= alert %></div>-->
     <%# end %>
 
-    <% flash.each do |type, message| %>
-    <% class_name = {
-      notice: "flash flash-notice",
-      alert: "flash flash-alert",
-      error: "flash flash-error"
-    }[type.to_sym] || "flash" %>
 
-    <div data-controller="flash" class="<%= class_name %>">
-      <%= message %>
+
+    <div id="flash">
+      <% flash.each do |type, message| %>
+        <% class_name = {
+          notice: "flash flash-notice",
+          alert: "flash flash-alert",
+          error: "flash flash-error"
+        }[type.to_sym] || "flash" %>
+
+        <div data-controller="flash" class="<%= class_name %>">
+          <%= message %>
+        </div>
+      <% end %>
+
     </div>
-  <% end %>
+
 
     <%= yield %>
   </body>

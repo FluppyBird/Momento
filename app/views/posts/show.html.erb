@@ -22,14 +22,6 @@
         <div class="d-flex justify-content-between align-items-center mb-3">
           <h4 class="fw-bold"><%= @post.title %></h4>
 
-          <%# if current_user && current_user != @post.user %>
-            <%# if current_user.following.include?(@post.user) %>
-              <%#= button_to "取消关注", unfollow_user_path(@post.user), method: :delete, class: "btn btn-outline-danger btn-sm" %>
-            <%# else %>
-              <%#= button_to "关注", follow_user_path(@post.user), method: :post, class: "btn btn-outline-primary btn-sm" %>
-            <%# end %>
-          <%# end %>
-
           <%= render "posts/follow_button", user: @post.user %>
 
         </div>
@@ -47,9 +39,16 @@
         <hr>
         <p class="mb-3"><%= @post.content %></p>
 
-        <div id="like_button_<%= @post.id %>">
+        <div class="d-flex justify-content-between align-items-center">
           <%= render "posts/like_button", post: @post %>
+
+          <% if current_user == @post.user %>
+            <%= button_to "Delete", post_path(@post), method: :delete,
+                          data: { turbo_confirm: "Are you sure you want to delete this post?" },
+                          class: "btn btn-outline-danger btn-sm" %>
+          <% end %>
         </div>
+
 
         <hr>
         <h5 class="mb-3">评论</h5>
@@ -73,6 +72,5 @@
     </div>
   </div>
 </div>
-
 
 
