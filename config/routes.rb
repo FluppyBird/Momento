@@ -1,14 +1,7 @@
 Rails.application.routes.draw do
   devise_for :users
-  # root "likes#index"
-  root "posts#index"
 
-  # get "signup", to: "users#new"
-  # post "signup", to: "users#create"
-  #
-  # get "login", to: "sessions#new"
-  # post "login", to: "sessions#create"
-  # delete "logout", to: "sessions#destroy"
+  root "posts#index"
 
   resources :posts do
     resources :comments, only: [:create, :destroy]
@@ -23,4 +16,21 @@ Rails.application.routes.draw do
   end
 
   resources :profiles, only: [:show, :edit, :update]
+
+  namespace :api do
+    namespace :v1 do
+      devise_scope :user do
+        post "signup", to: "registrations#create"
+        post 'login', to: 'sessions#create'
+        # post 'login', to: 'sessions#create'
+        delete 'logout', to: 'sessions#destroy'
+      end
+
+      resources :posts, only: [:index, :show, :create, :destroy]
+    end
+  end
+
+
+
+
 end

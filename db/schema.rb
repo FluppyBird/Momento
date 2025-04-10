@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2025_04_04_213947) do
+ActiveRecord::Schema[7.1].define(version: 2025_04_08_004704) do
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -73,6 +73,14 @@ ActiveRecord::Schema[7.1].define(version: 2025_04_04_213947) do
     t.string "email"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "jwt_denylists", force: :cascade do |t|
+    t.string "jti"
+    t.datetime "exp"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["jti"], name: "index_jwt_denylists_on_jti"
   end
 
   create_table "likes", force: :cascade do |t|
