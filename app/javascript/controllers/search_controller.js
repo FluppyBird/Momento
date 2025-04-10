@@ -3,6 +3,9 @@ import { Controller } from "@hotwired/stimulus"
 export default class extends Controller {
     static values = { url: String }
     timeout = null
+    connect() {
+        console.log("Search controller connected")
+    }
 
     submit(event) {
         clearTimeout(this.timeout)
