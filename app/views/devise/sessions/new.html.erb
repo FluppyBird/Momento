@@ -32,7 +32,7 @@
         <div class="card-body">
           <h2 class="card-title text-center mb-4">Login</h2>
 
-          <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |form| %>
+          <%= form_for(resource, as: resource_name, url: session_path(resource_name), data: { turbo: false }) do |form| %>
             <div class="mb-3">
               <%= form.label :email, "Email", class: "form-label" %>
               <%= form.email_field :email, autofocus: true, autocomplete: "email", class: "form-control" %>

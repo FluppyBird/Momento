@@ -46,7 +46,7 @@
 
           <!-- 退出登录按钮 -->
           <li class="nav-item mb-3">
-            <%= button_to "Logout", destroy_user_session_path, method: :delete, class: "btn btn-danger w-100" %>
+            <%= button_to "Logout", destroy_user_session_path, method: :delete, data: { turbo: false }, class: "btn btn-danger w-100" %>
           </li>
 
         <% else %>
@@ -66,42 +66,61 @@
     <!-- 主内容区 -->
     <div class="main-content">
       <!-- 搜索栏 -->
+<!--      <div class="d-flex justify-content-between mt-3 mb-4">-->
+<!--        <input type="text" class="form-control" placeholder="Search for more contents" style="width: 300px;">-->
+<!--      </div>-->
+
       <div class="d-flex justify-content-between mt-3 mb-4">
-        <input type="text" class="form-control" placeholder="Search for more contents" style="width: 300px;">
+        <input type="text"
+               data-controller="search"
+               data-action="input->search#submit"
+               data-search-url-value="<%= posts_path %>"
+               class="form-control"
+               placeholder="Search for more contents"
+               style="width: 300px;">
       </div>
 
       <!-- 瀑布流布局 -->
-      <div class="grid-container">
-<!--        正常-->
-        <% @posts.each do |post| %>
-          <div class="grid-item card h-100">
-            <% if post.image.attached? %>
-              <%= link_to post_path(post) do %>
-                <% if post.image.metadata[:height] > post.image.metadata[:width] %>
-                  <%= image_tag post.image.variant(resize_to_fill: [260.5, 347]), class: "card-img-top" %>
-                <% else %>
-                  <%= image_tag post.image.variant(resize_to_fill: [260.5, 195]), class: "card-img-top" %>
-                <% end %>
-              <% end %>
-            <% end %>
-            <div class="card-body">
-              <h5 class="card-title"><%= link_to post.title, post_path(post), data: { turbo_frame: "modal" } %></h5>
-              <p class="card-text d-flex justify-content-between align-items-center">
-                <span class="d-flex align-items-center">
-                  <% if post.user.profile.avatar.attached? %>
+      <turbo-frame id="posts_list">
+        <div class="grid-container">
+          <%= render partial: "post_card", collection: @posts, as: :post%>
+          <%#= render partial: "post_card" %>
+        </div>
+      </turbo-frame>
 
-                    <%= image_tag post.user.profile.avatar.variant(resize_to_fill: [24, 24]), saver: { quality: 30 }, class: "rounded-circle me-2" %>
-                  <% end %>
-                  <%= link_to post.user.username, profile_path(post.user), class: "fw-semibold text-dark text-decoration-none" %>
-                </span>
-<!--                <span><%#= link_to post.user.username, profile_path(post.user) %></span>-->
-                <span>❤️ <%= post.likes.count %></span>
-              </p>
-            </div>
-          </div>
-        <% end %>
+<!--      <turbo-frame id="posts_list">-->
+          <%#= render partial: "post_card", collection: @posts %>
+<!--      </turbo-frame>-->
 
-      </div>
+      <!-- 瀑布流布局 -->
+<!--      <div class="grid-container">-->
+        <%# @posts.each do |post| %>
+<!--          <div class="grid-item card h-100">-->
+            <%# if post.image.attached? %>
+              <%#= link_to post_path(post) do %>
+                <%# if post.image.metadata[:height] > post.image.metadata[:width] %>
+                  <%#= image_tag post.image.variant(resize_to_fill: [260.5, 347]), class: "card-img-top" %>
+                <%# else %>
+                  <%#= image_tag post.image.variant(resize_to_fill: [260.5, 195]), class: "card-img-top" %>
+                <%# end %>
+              <%# end %>
+            <%# end %>
+<!--            <div class="card-body">-->
+<!--              <h5 class="card-title"><%#= link_to post.title, post_path(post), data: { turbo_frame: "modal" } %></h5>-->
+<!--              <p class="card-text d-flex justify-content-between align-items-center">-->
+<!--                <span class="d-flex align-items-center">-->
+                  <%# if post.user.profile.avatar.attached? %>
+
+                    <%#= image_tag post.user.profile.avatar.variant(resize_to_fill: [24, 24]), saver: { quality: 30 }, class: "rounded-circle me-2" %>
+                  <%# end %>
+                  <%#= link_to post.user.username, profile_path(post.user), class: "fw-semibold text-dark text-decoration-none" %>
+<!--                </span>-->
+<!--                <span>❤️ <%#= post.likes.count %></span>-->
+<!--              </p>-->
+<!--            </div>-->
+<!--          </div>-->
+        <%# end %>
+<!--      </div>-->
 
     </div>
   </div>

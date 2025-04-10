@@ -1,0 +1,15 @@
+<turbo-stream target="posts_list" action="update">
+  <template>
+    <div class="grid-container">
+      <%#= render partial: "post_card", collection: @posts %>
+      <%= render partial: "post_card", formats: [:html], collection: @posts, as: :post%>
+      <%#= render partial: "post_card", formats: [:html] %>
+    </div>
+  </template>
+</turbo-stream>
+
+<!--<turbo-frame id="posts_list">-->
+<!--  <div class="grid-container">-->
+    <%#= render partial: "post_card", collection: @posts %>
+<!--  </div>-->
+<!--</turbo-frame>-->

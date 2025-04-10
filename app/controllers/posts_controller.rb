@@ -1,6 +1,19 @@
 class PostsController < ApplicationController
+  # def index
+  #   @posts = Post.all.order(created_at: :desc)
+  # end
+
   def index
-    @posts = Post.all.order(created_at: :desc)
+    @posts = if params[:query].present?
+               Post.where("title LIKE ?", "%#{params[:query]}%").order(created_at: :desc)
+             else
+               Post.order(created_at: :desc)
+             end
+
+    respond_to do |format|
+      format.html
+      format.turbo_stream
+    end
   end
 
   def new

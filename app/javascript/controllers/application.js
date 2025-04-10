@@ -13,3 +13,6 @@ application.register("hello", HelloController)
 
 import FlashController from "./flash_controller"
 application.register("flash", FlashController)
+
+import SearchController from "./search_controller"
+application.register("posts_list", SearchController)
